@@ -1,0 +1,19 @@
+﻿@inherits TestComponentBase
+
+<Fixture Test="ItExists">
+    <ComponentUnderTest>
+        <Counter />
+    </ComponentUnderTest>
+
+    @code
+    {
+        void ItExists(Fixture fixture)
+        {
+            // Act
+            var cut = fixture.GetComponentUnderTest<Counter>();
+
+            // Assert
+            Assert.NotNull(cut);
+        }
+    }
+</Fixture>
