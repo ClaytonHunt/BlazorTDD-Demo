@@ -59,11 +59,11 @@ namespace BlazorTDD.Tests.Unit
             // Assert
             Assert.Equal(1, forecasts.Count);
             forecast.MarkupMatches(@"<tr class=""forecast"">
-            <td>11/25/2020</td>
-            <td>29</td>
-            <td>84</td>
-            <td>Balmy</td>
-        </tr>");
+                                        <td>11/25/2020</td>
+                                        <td>29</td>
+                                        <td>84</td>
+                                        <td>Balmy</td>
+                                    </tr>");
         }
     }
 }
