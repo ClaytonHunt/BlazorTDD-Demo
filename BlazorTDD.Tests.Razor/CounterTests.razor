@@ -9,11 +9,55 @@
     {
         void ItExists(Fixture fixture)
         {
-            // Act
+            // Arrange
             var cut = fixture.GetComponentUnderTest<Counter>();
 
             // Assert
             Assert.NotNull(cut);
+        }
+    }
+</Fixture>
+
+<Fixture Test="Default_CountIsZero">
+    <ComponentUnderTest>
+        <Counter />
+    </ComponentUnderTest>
+
+    @code
+    {
+        void Default_CountIsZero(Fixture fixture)
+        {
+            // Arrange
+            var cut = fixture.GetComponentUnderTest<Counter>();
+
+            var counter = cut.Find("#counter");
+
+            // Assert
+            Assert.Equal("Current count: 0", counter.InnerHtml);
+        }
+    }
+</Fixture>
+
+<Fixture Test="ButtonClicked_CountIsIncremented">
+    <ComponentUnderTest>
+        <Counter />
+    </ComponentUnderTest>
+
+    @code
+    {
+        void ButtonClicked_CountIsIncremented(Fixture fixture)
+        {
+            // Arrange
+            var cut = fixture.GetComponentUnderTest<Counter>();
+
+            var button = cut.Find("#incrementer");
+            var counter = cut.Find("#counter");
+
+            // Act
+            button.Click();
+
+            // Assert
+            Assert.Equal("Current count: 1", counter.InnerHtml);
         }
     }
 </Fixture>
