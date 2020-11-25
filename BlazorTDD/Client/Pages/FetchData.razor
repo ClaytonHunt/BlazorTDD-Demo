@@ -24,7 +24,7 @@ else
         <tbody>
             @foreach (var forecast in forecasts)
             {
-                <tr>
+                <tr class="forecast">
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
@@ -35,12 +35,12 @@ else
     </table>
 }
 
-@code {
+@code
+{
     private WeatherForecast[] forecasts;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
-
 }

@@ -1,10 +1,13 @@
 ﻿@inherits TestComponentBase
 
-@code {
+@code 
+{ 
+    private MockHttpMessageHandler _http { get; set; }
+
     void SetupFetchData(Fixture fixture)
     {
-        fixture.Services.AddMockHttpClient();
-    }
+        _http = fixture.Services.AddMockHttpClient();
+    } 
 }
 
 <Fixture Setup="SetupFetchData" Test="ItExists">
@@ -13,16 +16,15 @@
     </ComponentUnderTest>
 
     @code
-    {
+    { 
         void ItExists(Fixture fixture)
         {
             // Arrange
-            
             var cut = fixture.GetComponentUnderTest<FetchData>();
 
             // Assert
             Assert.NotNull(cut);
-        }
+        } 
     }
 </Fixture>
 
@@ -32,16 +34,54 @@
     </ComponentUnderTest>
 
     @code
-    {
+    { 
         void Default_IsLoading(Fixture fixture)
         {
             // Arrange
-
             var cut = fixture.GetComponentUnderTest<FetchData>();
             var loading = cut.Find("#loading");
 
             // Assert
             Assert.Equal("Loading...", loading.InnerHtml);
+        } 
+    }
+</Fixture>
+
+<Fixture Setup="SetupFetchData" Test="HttpResponse_RendersForecasts">
+    <ComponentUnderTest>
+        <FetchData />
+    </ComponentUnderTest>
+
+    <Fragment Id="forecast">
+        <tr class="forecast">
+            <td>11/25/2020</td>
+            <td>29</td>
+            <td>84</td>
+            <td>Balmy</td>
+        </tr>
+    </Fragment>
+
+    @code
+    { 
+        void HttpResponse_RendersForecasts(Fixture fixture)
+        {
+            // Arrange
+            _http.When("/WeatherForecast").RespondJson(new WeatherForecast[] {
+                new WeatherForecast { Date = new DateTime(2020, 11, 25, 15, 47, 0), Summary = "Balmy", TemperatureC = 29 }
+            });
+
+            var cut = fixture.GetComponentUnderTest<FetchData>();
+
+            // Act
+            cut.WaitForState(() => cut.FindAll(".forecast").Count > 0);
+
+            // Audit
+            var forecasts = cut.FindAll(".forecast");
+            var forecast = forecasts.FirstOrDefault();
+
+            // Assert
+            Assert.Equal(1, forecasts.Count);
+            forecast.MarkupMatches(fixture.GetFragment("forecast"));
         }
     }
 </Fixture>
