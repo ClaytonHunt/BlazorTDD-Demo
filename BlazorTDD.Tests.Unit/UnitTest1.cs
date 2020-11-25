@@ -16,5 +16,18 @@ namespace BlazorTDD.Tests.Unit
             // Assert
             Assert.NotNull(cut);
         }        
+
+        [Fact]
+        public void Default_CountIsZero()
+        {
+            // Arrange
+            var ctx = new TestContext();
+            var cut = ctx.RenderComponent<Counter>();
+
+            var counter = cut.Find("#counter");
+
+            // Assert
+            Assert.Equal("Current count: 0", counter.InnerHtml);       
+        }
     }
 }
