@@ -1,0 +1,47 @@
+﻿@inherits TestComponentBase
+
+@code {
+    void SetupFetchData(Fixture fixture)
+    {
+        fixture.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://base.url") });
+    }
+}
+
+<Fixture Setup="SetupFetchData" Test="ItExists">
+    <ComponentUnderTest>
+        <FetchData />
+    </ComponentUnderTest>
+
+    @code
+    {
+        void ItExists(Fixture fixture)
+        {
+            // Arrange
+            
+            var cut = fixture.GetComponentUnderTest<FetchData>();
+
+            // Assert
+            Assert.NotNull(cut);
+        }
+    }
+</Fixture>
+
+<Fixture Setup="SetupFetchData" Test="Default_IsLoading">
+    <ComponentUnderTest>
+        <FetchData />
+    </ComponentUnderTest>
+
+    @code
+    {
+        void Default_IsLoading(Fixture fixture)
+        {
+            // Arrange
+
+            var cut = fixture.GetComponentUnderTest<FetchData>();
+            var loading = cut.Find("#loading");
+
+            // Assert
+            Assert.Equal("Loading...", loading.InnerHtml);
+        }
+    }
+</Fixture>

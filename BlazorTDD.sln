@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTDD.Shared", "BlazorT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTDD.Tests.Unit", "BlazorTDD.Tests.Unit\BlazorTDD.Tests.Unit.csproj", "{F2322706-1271-4519-8353-D3B4CAF50EC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorTDD.Tests.Razor", "BlazorTDD.Tests.Razor\BlazorTDD.Tests.Razor.csproj", "{85B5DBA3-A1A2-4C5F-AE75-B6CCF6F3E619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorTDD.Tests.Razor", "BlazorTDD.Tests.Razor\BlazorTDD.Tests.Razor.csproj", "{85B5DBA3-A1A2-4C5F-AE75-B6CCF6F3E619}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
