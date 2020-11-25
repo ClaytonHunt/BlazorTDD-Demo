@@ -16,6 +16,7 @@ namespace BlazorTDD.Tests.Unit
         public FetchDataTests()
         {
             _http = Services.AddMockHttpClient();
+            _http.Fallback.RespondDefault();
         } 
 
         [Fact]

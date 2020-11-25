@@ -7,6 +7,7 @@
     void SetupFetchData(Fixture fixture)
     {
         _http = fixture.Services.AddMockHttpClient();
+        _http.Fallback.RespondDefault();
     } 
 }
 

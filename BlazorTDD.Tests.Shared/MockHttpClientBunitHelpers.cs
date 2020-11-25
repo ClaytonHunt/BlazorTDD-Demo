@@ -44,5 +44,17 @@ namespace BlazorTDD.Tests.Shared
             });
             return request;
         }
+
+        public static MockedRequest RespondDefault(this MockedRequest request)
+        {
+            request.Respond(req =>
+            {
+                var response = new HttpResponseMessage(HttpStatusCode.OK);
+                response.Content = new StringContent(string.Empty);
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                return response;
+            });
+            return request;
+        }
     }
 }
