@@ -4,14 +4,13 @@ using Xunit;
 
 namespace BlazorTDD.Tests.Unit
 {
-    public class CounterTests
+    public class CounterTests: TestContext
     {
         [Fact]
         public void ItExists()
         {
-            // Arrange
-            var ctx = new TestContext();
-            var cut = ctx.RenderComponent<Counter>();
+            // Arrange            
+            var cut = RenderComponent<Counter>();
 
             // Assert
             Assert.NotNull(cut);
@@ -21,8 +20,7 @@ namespace BlazorTDD.Tests.Unit
         public void Default_CountIsZero()
         {
             // Arrange
-            var ctx = new TestContext();
-            var cut = ctx.RenderComponent<Counter>();
+            var cut = RenderComponent<Counter>();
 
             var counter = cut.Find("#counter");
 
@@ -34,8 +32,7 @@ namespace BlazorTDD.Tests.Unit
         public void ButtonClicked_CountIsIncremented()
         {
             // Arrange
-            var ctx = new TestContext();
-            var cut = ctx.RenderComponent<Counter>();
+            var cut = RenderComponent<Counter>();
 
             var button = cut.Find("#incrementer");
             var counter = cut.Find("#counter");
