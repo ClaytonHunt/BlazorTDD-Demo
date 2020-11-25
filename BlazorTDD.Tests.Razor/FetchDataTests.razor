@@ -3,7 +3,7 @@
 @code {
     void SetupFetchData(Fixture fixture)
     {
-        fixture.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://base.url") });
+        fixture.Services.AddMockHttpClient();
     }
 }
 

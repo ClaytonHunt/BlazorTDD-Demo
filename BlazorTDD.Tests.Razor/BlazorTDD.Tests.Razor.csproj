@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlazorTDD.Tests.Shared\BlazorTDD.Tests.Shared.csproj" />
     <ProjectReference Include="..\BlazorTDD\Client\BlazorTDD.Client.csproj" />
   </ItemGroup>
 
