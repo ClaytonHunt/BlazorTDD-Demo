@@ -1,6 +1,14 @@
 ﻿@inherits TestComponentBase
 
-<Fixture Test="ItExists">
+@code 
+{
+    void Setup(Fixture fixture)
+    {
+        fixture.Services.AddSingleton<SharedState>();
+    }
+}
+
+<Fixture Setup="Setup" Test="ItExists">
     <ComponentUnderTest>
         <Counter />
     </ComponentUnderTest>
@@ -18,7 +26,7 @@
     }
 </Fixture>
 
-<Fixture Test="Default_CountIsZero">
+<Fixture Setup="Setup" Test="Default_CountIsZero">
     <ComponentUnderTest>
         <Counter />
     </ComponentUnderTest>
@@ -38,7 +46,7 @@
     }
 </Fixture>
 
-<Fixture Test="ButtonClicked_CountIsIncremented">
+<Fixture Setup="Setup" Test="ButtonClicked_CountIsIncremented">
     <ComponentUnderTest>
         <Counter />
     </ComponentUnderTest>
@@ -58,6 +66,35 @@
 
             // Assert
             Assert.Equal("Current count: 1", counter.InnerHtml);
+        }
+    }
+</Fixture>
+
+<Fixture Setup="Setup" Test="ButtonClicked_CountIsIncrementedForAll">
+    <ComponentUnderTest>
+        <Counter />
+        <Counter />
+    </ComponentUnderTest>
+
+    @code
+    {
+        void ButtonClicked_CountIsIncrementedForAll(Fixture fixture)
+        {
+            // Arrange
+            var cuts = fixture.GetComponentUnderTest().FindComponents<Counter>();
+            var counter1 = cuts.First();
+            var counter2 = cuts.Last();
+
+            var button = counter1.Find("#incrementer");
+            var count1 = counter2.Find("#counter");
+            var count2 = counter2.Find("#counter");
+
+            // Act
+            button.Click();
+
+            // Assert
+            Assert.Equal("Current count: 1", count1.InnerHtml);
+            Assert.Equal(count1.InnerHtml, count2.InnerHtml);
         }
     }
 </Fixture>

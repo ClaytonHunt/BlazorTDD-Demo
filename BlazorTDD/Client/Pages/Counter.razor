@@ -1,16 +1,24 @@
 ﻿@page "/counter"
+@inject SharedState state 
 
 <h1>Counter</h1>
 
-<p id="counter">Current count: @currentCount</p>
+<p id="counter">Current count: @state.Count</p>
 
-<button id="incrementer" class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<button id="incrementer" class="btn btn-primary" @onclick="state.Increment">Click me</button>
 
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
+@code 
+{      
+    protected override Task OnInitializedAsync()
     {
-        currentCount++;
+        state.PropertyChanged += (sender, args) =>
+        {
+            if(args.PropertyName == nameof(state.Count))
+            {
+                StateHasChanged();
+            }
+        };
+
+        return base.OnInitializedAsync();
     }
 }

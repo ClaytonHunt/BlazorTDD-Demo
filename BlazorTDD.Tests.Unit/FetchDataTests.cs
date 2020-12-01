@@ -50,7 +50,7 @@ namespace BlazorTDD.Tests.Unit
 
             var cut = RenderComponent<FetchData>();
 
-            // Act
+            // Act            
             cut.WaitForState(() => cut.FindAll(".forecast").Count > 0);
 
             // Audit
